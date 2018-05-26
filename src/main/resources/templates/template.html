@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.orp"
+      xmlns:layout="http://www.ultrap.net.nz/thymeleaf/layout">
+    <head>
+        <title>proxibanque</title>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/><link th:href="@{css/bootstrap.css}" rel='stylesheet' type='text/css' />
+        <link th:href="@{css/bootstrap.css}" rel='stylesheet' type='text/css' />
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+    </head>
+
+    <body  class="container">
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav" style="margin-left: 10%">
+                    <li class="active"><a th:href="@{/proxibanque/clients}"><b>Home</b></a></li>
+                    <li><a th:href="@{/proxibanque/creer-client}"><b>Nouveau client</b></a></li>
+                    <li><a th:href="@{/proxibanque/virement}"><b>Virement</b></a></li>
+                </ul> 
+                <!--================================================================-->
+                <ul class="nav navbar-nav navbar-right" th:object="${myUser}" style="margin-right: 10%">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" role="button" data-toggle="dropdown" 
+                           href="#" aria-expanded="false" aria-haspopup="true">
+                            <span class="glyphicon glyphicon-user" style="margin-right: 5px"></span> 
+                            <span th:text="*{username}"></span>
+                            <span class="caret" ></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{/proxibanque/profil}">Modifier mon Profil</a></li>
+                            <li class="divider"></li>
+                            <li><a th:href="@{/login?logout}">Se Déconnecter</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div layout:fragment="content" ></div>
+        <link rel="stylesheet" href="http://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css"/>
+        <script src="http://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    </body>       
+
+</html>

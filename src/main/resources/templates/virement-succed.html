@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.orp"
+      xmlns:layout="http://www.ultrap.net.nz/thymeleaf/layout"
+      layout:decorator="template">
+    <head>
+        <title>virement reussi</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body layout:fragment="content" style="margin-top: 100px; background-color: wheat">
+       <div class="col-md-10 col-sm-10 col-xs-10 spacer col-md-offset-1">
+                <div class="panel panel-success">
+                    <div class="panel-heading"><b>VIREMENT EFFECTUE AVEC SUCCES</b></div>
+                    <div class="panel-body">
+                        <div class="alert alert-danger alert-dismissable ">
+                                <button type="button" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-remove-circle"></span> </button>
+                                <strong>Virement effectué avec succes</strong>
+                            </div>
+                        <div class="row"></div> 
+
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+
+                            <fieldset>
+                                <legend style="text-align: center">CLIENT EMETEUR</legend>
+                                
+                                <div th:if="${clientEmeteur != null}">
+                                    <pan th:object="${clientEmeteur}">
+                                        <div>
+                                            <h4> <b th:text="*{nom}"></b>
+                                                <b th:text="*{prenom}"></b></h4>
+                                        </div>
+                                        <div>
+                                            <label class="control-label">Email :</label>
+                                            <span type="email" th:text="*{email}"/>
+                                        </div>
+                                        <div>
+                                            <label class="control-label">Adresse :</label>
+                                            <span type="text" th:text="*{adresse}"/>
+                                        </div>
+                                    </pan>
+                                    <pan th:object="${compteEmeteur}">
+                                        <div>
+                                            <label class="control-label">Numero :</label>
+                                            <span type="text" th:text="*{code}" style="background-color: #ffff33"/>
+                                        </div>
+                                        <div>
+                                            <label class="control-label">Solde :</label>
+                                            <span th:text="*{solde}" style="background-color: #ffff33"/> F CFA
+                                        </div>
+                                    </pan>
+                                </div>
+                                <hr class="btn-danger"/>
+                            </fieldset>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                            <fieldset>
+
+                                <legend style="text-align: center">CLIENT RECEPTEUR</legend>
+
+                                <div th:if="${clientRecepteur != null}">
+                                    <pan th:object="${clientRecepteur}">
+                                        <div>
+                                            <h4> <b th:text="*{nom}"></b>
+                                                <b th:text="*{prenom}"></b></h4>
+                                        </div>
+                                        <div>
+                                            <label class="control-label">Email :</label>
+                                            <span type="email" th:text="*{email}"/>
+                                        </div>
+                                        <div>
+                                            <label class="control-label">Adresse :</label>
+                                            <span type="text" th:text="*{adresse}"/>
+                                        </div>
+                                    </pan>
+                                    <pan th:object="${compteRecepteur}">
+                                        <div>
+                                            <label class="control-label">Numero :</label>
+                                            <span th:text="*{code}" style="background-color: #ffff33"/>
+                                        </div>
+                                        <div>
+                                            <label class="control-label">Solde :</label>
+                                            <span type="text" th:text="*{solde}" style="background-color: #ffff33"/> F CFA
+                                        </div>
+                                    </pan>
+                                </div>
+                            <hr class="btn-danger"/>
+                            </fieldset>
+                        </div> 
+
+                    </div>
+
+                </div>
+            </div>
+    </body>
+</html>

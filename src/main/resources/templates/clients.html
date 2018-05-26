@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.orp"
+      xmlns:layout="http://www.ultrap.net.nz/thymeleaf/layout"
+      layout:decorator="template">
+    <head>
+        <title>list clients</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body layout:fragment="content" style="background-color: wheat; margin-top: 100px">
+        <div class="alert alert-danger alert-dismissable " th:object="${myUser}" style="margin-left: 2%; border-radius: 50%">
+            <button type="button" class="close" data-dismiss="alert">
+<!--                <span class="glyphicon glyphicon-remove"></span> -->
+            </button>
+            <h5 style="margin-left: 15%"><b>Bienvenue Mr/Mdme
+                    <span th:text="*{username}"></span>, vous trouverez ci-dessous la liste des Clients dont vous êtes le gestionnaire. Merci !
+                </b></h5>
+        </div>
+        <div class="container">
+            <div class="panel panel-success" style="border-radius: 10%">
+                <div class="panel-heading"> 
+                    <h3> <b style="margin-left: 40%"> Liste des Clients</b> </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row-table">
+
+
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>NOM</th>
+                                    <th>PRENOM</th>
+                                    <th>EMAIL</th>
+                                    <th>ADRESSE</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="c:${clients}">
+                                    <td th:text="${c.nom}"></td>
+                                    <td th:text="${c.prenom}"></td>
+                                    <td th:text="${c.email}"></td>
+                                    <td th:text="${c.adresse}"></td>
+                                    <td >
+                                        <a  th:href="@{details(id=${c.id})}" >
+                                            <button class="btn btn-block btn-success"><span class="glyphicon glyphicon-eye-open" /></button>
+                                        </a>
+                                    </td>
+                                    <td ><a  th:href="@{editer(id=${c.id})}" >
+                                            <button class="btn btn-block btn-warning"><span class="glyphicon glyphicon-edit" /></button>
+                                        </a>
+                                    </td>       
+                                </tr>     
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>       
+    </body>
+</html>

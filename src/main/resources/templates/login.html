@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.orp"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <head>
+        <title>login security</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+        <link href="css/my_style.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body style="margin-top: 150px; background-color: black">
+        <section class="row">
+            <div class="col-sm-5"></div>
+            <div class="col-sm-2 myStyle">
+
+                <form th:action="@{/login}" method="post">
+                    <h1> <span class="glyphicon glyphicon-user col-sm-offset-4 myGly"></span></h1>
+                    <div th:if="${param.error}" class="red">
+                        Invalid username and password
+                    </div>
+                    <div th:if="${param.logout}" class="red">
+                        you have been logged out
+                    </div>
+                    <div class="form-group">
+                        <label><span style="color: black">Nom utilisateur : </span>
+                            <input type="text" name="username" class="form-control" style="font-size: 20px"/> 
+                        </label>
+                    </div>
+                    <div>
+                        <label><span style="color: black">Mot de passe :</span> <br/>
+                            <input type="password" name="password" class="form-control" style="font-size: 50px; color: whitesmoke"/>
+                        </label>
+                    </div>
+                    <div> <input type="submit" value="Sign In" class="btn btn-warning col-sm-4 col-sm-offset-4" style="margin-bottom: 10px"/> </div>
+                </form>
+            </div>
+            <div class="col-sm-5"></div>
+        </section>
+
+        <style>
+            .red{
+                color: red;
+            }
+
+            .myStyle{
+                background-color: maroon;
+                border-radius: 10px;
+                box-shadow:  5px 5px 3px white;
+            }
+
+            .myGly{
+                font-size: 70px; 
+                background-color:white;
+                border-radius: 15px;
+            }
+        </style>
+    </body>
+</html>

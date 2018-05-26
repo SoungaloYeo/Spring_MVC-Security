@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.orp"
+      xmlns:layout="http://www.ultrap.net.nz/thymeleaf/layout"
+      layout:decorator="template">
+    <head>
+        <title>comptes</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body layout:fragment="content" style="background-color: wheat; margin-top: 100px">
+
+        <form th:action="@{data-comptes}" method="get">
+            <div class="col-md-10 col-sm-10 col-xs-10 spacer col-md-offset-1">
+                <div class="panel panel-success">
+                    <div class="panel-heading"><b>EFFECTUER UN VIREMENT</b></div>
+                    <div class="panel-body">
+                        <div class="row"></div> 
+
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+
+                            <fieldset>
+                                <legend style="text-align: center">CLIENT EMETEUR</legend>
+                                <div th:if="${clientRecepteur == null}">
+
+                                    <label for="numero">Saisir le Numero de compte</label>
+                                    <input list="myList" type="text" class="form-control" id="numero" name="selectEmet"/>
+                                    <datalist id="myList" >
+                                            <div th:each="num:${myList}">
+                                                <option th:value="${num}" > </option>
+                                            </div>
+                                        
+                                    </datalist>
+                                   
+                                </div>
+
+                                <div th:if="${clientEmeteur != null}">
+                                    <pan th:object="${clientEmeteur}">
+                                        <div>
+                                            <h4> <b th:text="*{nom}"></b>
+                                                <b th:text="*{prenom}"></b></h4>
+                                        </div>
+                                        <div>
+                                            <label class="control-label">Email :</label>
+                                            <span type="email" th:text="*{email}"/>
+                                        </div>
+                                        <div>
+                                            <label class="control-label">Adresse :</label>
+                                            <span type="text" th:text="*{adresse}"/>
+                                        </div>
+                                    </pan>
+                                    <pan th:object="${compteEmeteur}">
+                                        <div>
+                                            <label class="control-label">Numero :</label>
+                                            <span type="text" th:text="*{code}" style="background-color: #ffff33"/>
+                                            <input type="hidden" th:field="*{code}"/>
+                                        </div>
+                                        <div>
+                                            <label class="control-label">Solde :</label>
+                                            <span th:text="*{solde}" style="background-color: #ffff33"/> F CFA
+                                        </div>
+                                    </pan>
+                                </div>
+                                <hr class="btn-danger"/>
+                            </fieldset>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                            <fieldset>
+
+                                <legend style="text-align: center">CLIENT RECEPTEUR</legend>
+                                <div th:if="${clientRecepteur == null}">
+                                    <label for="numero">Saisir le Numero de compte</label>
+                                    <input list="myList" type="text" class="form-control" id="numero" name="selectRecep"/>
+                                    <datalist id="myList" >
+                                            <div th:each="num:${myList}">
+                                                <option th:value="${num}" > </option>
+                                            </div>
+                                        
+                                    </datalist>
+                                </div>
+
+                                <div th:if="${clientRecepteur != null}">
+                                    <pan th:object="${clientRecepteur}">
+                                        <div>
+                                            <h4> <b th:text="*{nom}"></b>
+                                                <b th:text="*{prenom}"></b></h4>
+                                        </div>
+                                        <div>
+                                            <label class="control-label">Email :</label>
+                                            <span type="email" th:text="*{email}"/>
+                                        </div>
+                                        <div>
+                                            <label class="control-label">Adresse :</label>
+                                            <span type="text" th:text="*{adresse}"/>
+                                        </div>
+                                    </pan>
+                                    <pan th:object="${compteRecepteur}">
+                                        <div>
+                                            <label class="control-label">Numero :</label>
+                                            <span th:text="*{code}" style="background-color: #ffff33"/>
+                                            <input type="hidden" th:field="*{code}" />
+                                        </div>
+                                        <div>
+                                            <label class="control-label">Solde :</label>
+                                            <span type="text" th:text="*{solde}" style="background-color: #ffff33"/> F CFA
+                                        </div>
+                                    </pan>
+                                </div>
+                                <hr class="btn-danger"/>
+                            </fieldset>
+                        </div> 
+
+                        <!--cacher le boutons "voir detail"-->
+                        <span th:if="${clientEmeteur == null and clientRecepteur == null}">
+                            <button class="btn btn-primary col-sm-offset-5 " type="submit" name="btn-detail" value="ok" style="margin-top: 3%; margin-left: 45%">Voir detail</button>
+                        </span>
+                        <br/>
+                        <div th:if="${clientEmeteur != null and clientRecepteur != null}">
+                            <div class="col-xs-3"></div>
+
+                            <div class="col-xs-5" >
+                                <div class="input-group ">
+                                    <span class="input-group-addon alert-danger">Montant à virer</span>
+                                    <input type="text" pattern="[1-9].{0,}" title="Entrez un montant SVP" name="montant" class="form-control" id="solde"  required="true" />
+                                    <span class="input-group-addon alert-danger">F CFA</span>                   
+                                </div>
+                                <button type="button" class="btn btn-danger col-xs-offset-5" 
+                                        style="margin-top: 5%" name="btn-virement" value="ok"
+                                        data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Envoyer</button>
+                            </div>
+                            <!--================================================== creation du modal ===================================================-->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+
+                                        <div class="modal-body alert-danger" style="text-align: center">
+                                            <h3>Vous confirmez la modification?</h3>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="reset" data-dismiss="modal" class="btn btn-primary btn-sm form-button">Annuler</button>
+                                            <button type="submit" name="btn-virement" value="ok" class="btn btn-danger">Confirmé</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--========================================================================================================-->
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </body>
+</html>

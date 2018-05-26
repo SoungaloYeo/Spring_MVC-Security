@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.orp"
+      xmlns:layout="http://www.ultrap.net.nz/thymeleaf/layout"
+      layout:decorator="template">
+    <head>
+        <title>nouveau client</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body layout:fragment="content" style="background-color: wheat; margin-top: 100px">
+        <!--<div class="row">-->
+        <div class="col-md-10 col-sm-10 col-xs-10 spacer col-md-offset-1">
+            <div class="panel panel-success">
+                <div class="panel-heading"><b>CREATION D'UN NOUVEAU CLIENT</b></div>
+                <div class="panel-body">
+                    <form th:action="@{ajouterClient}" th:object="${client}" method="post">
+                        <div class="form-group">
+                            <label class="control-label">Nom</label>
+                            <input type="text" name="nom" class="form-control" required="true"/>
+                            <span></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Prenom</label>
+                            <input type="text" name="prenom" class="form-control" required="true"/>
+                            <span></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Email</label>
+                            <input type="email" name="email" class="form-control" required="true"/>
+                            <span></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Adresse</label>
+                            <input type="text" name="adresse" class="form-control" required="true"/>
+                            <span></span>
+                        </div>
+                        <div>
+                            <label for="success" class="btn btn-success">
+                                Creer compte Courant 
+                                <input type="checkbox" id="success" class="badgebox" name="cpteC"  value="CC"/>
+                                <span class="badge">&check;</span>
+                                <div>Faire un Depot(pas obligatoire)</div>
+                                <input type="number" class="form-control" required="true"  name="depotCC" value="0" placeholder="montant du depot"/>
+                            </label>                               
+
+                            <label for="warning" class="btn btn-warning">
+                                Creer compte Epargne 
+                                <input type="checkbox" id="warning" class="badgebox" name="cpteE" value="CE"/>
+                                <span class="badge">&check;</span>
+                                <div>Faire un Depot(pas obligatoire)</div>
+                                <input type="number" class="form-control" required="true" name="depotCE" value="0" placeholder="montant du depot" />
+                            </label>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-primary spacer col-sm-offset-10">Enregistrer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    <pan th:if="${clientRecapt != null}">
+        <div class="col-md-10 col-sm-10 col-xs-10 spacer col-md-offset-1">
+            <div class="panel panel-primary">
+                <div class="panel-heading"><b>RECAPITULATIF NOUVEAU CLIENT</b></div>
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div th:object="${clientRecapt}">
+                                <div>
+                                    <h4> <b th:text="*{nom}"></b>
+                                    <b th:text="*{prenom}"></b></h4>
+                                    <!--<span th:text="*{prenom}"/></div>-->  
+                                    </div>
+                                <div>
+                                    <label class="control-label">Email</label>
+                                    <span type="email" th:text="*{email}"/></div>
+                                <div>
+                                    <label class="control-label">Adresse</label>
+                                    <span type="text" th:text="*{adresse}"/></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <pan th:if="${compteCourant != null}">
+                                <div th:object="${compteCourant}">
+                                    <b>COMPTE COURANT </b>
+                                    <div>
+                                        <label class="control-label">Numero :</label>
+                                        <span  th:text="*{code}"/>
+                                    </div>
+                                    <div>
+                                        <label class="control-label">Solde :</label>
+                                        <span th:text="*{solde}"/>
+                                    </div>                                
+                                </div>
+                            </pan>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <pan th:if="${compteEpargne != null}">
+                                <div th:object="${compteEpargne}">
+                                    <b>COMPTE EPARGNE </b>
+                                    <div>
+                                        <label class="control-label">Numero :</label>
+                                        <span  th:text="*{code}"/>
+                                    </div>
+                                    <div>
+                                        <label class="control-label">Solde :</label>
+                                        <span th:text="*{solde}"/>
+                                    </div>                                
+                                </div>
+                            </pan>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </pan>
+
+
+
+
+    <style>
+        /* Hiding the checkbox, but allowing it to be focused */
+        .badgebox
+        { opacity: 0; }
+
+        .badgebox + .badge
+        {/* Move the check mark away when unchecked */
+            text-indent: -999999px;
+            /* Makes the badge's width stay the same checked and unchecked */
+            width: 27px; }
+
+        .badgebox:focus + .badge
+        {  /* Set something to make the badge looks focused */
+            /* This really depends on the application, in my case it was: */
+
+            /* Adding a light border */
+            box-shadow: inset 0px 0px 5px;
+            /* Taking the difference out of the padding */ }
+
+        .badgebox:checked + .badge
+        { /* Move the check mark back when checked */
+            text-indent: 0; }
+    </style>
+</body>
+</html>

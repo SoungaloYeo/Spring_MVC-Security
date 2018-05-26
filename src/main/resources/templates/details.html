@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.orp"
+      xmlns:layout="http://www.ultrap.net.nz/thymeleaf/layout"
+      layout:decorator="template">
+    <head>
+        <title>details client</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body layout:fragment="content" style="background-color: wheat; margin-top: 100px">
+        
+        <pan th:if="${client != null}">
+        <div class="col-md-10 col-sm-10 col-xs-10 spacer col-md-offset-1">
+            <div class="panel panel-success">
+                <div class="panel-heading"><b>RECAPITULATIF NOUVEAU CLIENT</b></div>
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div th:object="${client}">
+                                <div>
+                                    <h4> <b th:text="*{nom}"></b>
+                                    <b th:text="*{prenom}"></b></h4>
+                                    <!--<span th:text="*{prenom}"/></div>-->  
+                                    </div>
+                                <div>
+                                    <label class="control-label">Email</label>
+                                    <span type="email" th:text="*{email}"/></div>
+                                <div>
+                                    <label class="control-label">Adresse</label>
+                                    <span type="text" th:text="*{adresse}"/></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <pan th:if="${compteCourant != null}">
+                                <div th:object="${compteCourant}">
+                                    <b>COMPTE COURANT </b>
+                                    <div>
+                                        <label class="control-label">Numero :</label>
+                                        <span  th:text="*{code}"/>
+                                    </div>
+                                    <div>
+                                        <label class="control-label">Solde :</label>
+                                         <pan th:text="*{solde}"/> F CFA
+                                    </div>                                
+                                </div>
+                            </pan>
+                            <pan th:if="${compteCourant == null}">
+                                ce client ne posséde pas de compte courant pour le moment
+                            </pan>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <pan th:if="${compteEpargne != null}">
+                                <div th:object="${compteEpargne}">
+                                    <b>COMPTE EPARGNE </b>
+                                    <div>
+                                        <label class="control-label">Numero :</label>
+                                        <span  th:text="*{code}"/>
+                                    </div>
+                                    <div>
+                                        <label class="control-label">Solde :</label>
+                                        <span th:text="*{solde}"/> F CFA
+                                    </div>                                
+                                </div>
+                            </pan>
+                             <pan th:if="${compteEpargne == null}">
+                                ce client ne possède pas de compte epargne pour le moment
+                            </pan>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </pan>
+    </body>
+</html>
